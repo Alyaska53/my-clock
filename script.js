@@ -18,6 +18,10 @@ toggle.addEventListener('click', function(e) {
     }
 });
 
+function updateTime(time) {
+    return (time < 10) ? '0' + time : time;
+}
+
 function setDate() {
     const now = new Date();
                 
@@ -44,10 +48,6 @@ function setDate() {
     digitalClock.innerText = digitalHours + ' : ' + digitalMins + ' : ' + digitalSeconds;
     fullTime.innerText = day + ' ' + months[now.getMonth()] +' ' + now.getFullYear();
     dayOfWeek.innerText = days[now.getDay()];
-}
-
-function updateTime(time) {
-    return (time < 10) ? '0' + time : time;
 }
 
 setInterval(setDate, 1000);
