@@ -27,30 +27,41 @@ function updateTime(time) {
     return (time < 10) ? '0' + time : time;
 }
 
-function setDate() {
-    const now = new Date();
-                
-    const seconds = now.getSeconds();
-    const milliseconds = seconds + now.getMilliseconds() / 1000;
-    const mins = now.getMinutes();
-    const hours = now.getHours();
-    const day = now.getDate();
-
-    const secondsDegrees = ((milliseconds / 60) * 360) + 90;
-    const minsDegrees = ((mins / 60) * 360) + ((milliseconds / 60) * 6) + 90;
+function setClockDegrees(ms, mins, hours) {
+    const secondsDegrees = ((ms / 60) * 360) + 90;
+    const minsDegrees = ((mins / 60) * 360) + ((ms / 60) * 6) + 90;
     const hoursDegrees = ((hours / 12) * 360) + ((mins / 60) * 30) + 90;
 
     secondHand.style.transform = `rotate(${secondsDegrees}deg)`;
     minsHand.style.transform = `rotate(${minsDegrees}deg)`;
     hourHand.style.transform = `rotate(${hoursDegrees}deg)`;
+}
 
+function setClockTime(presentTime, seconds, mins, hours) {
     const digitalSeconds = updateTime(seconds);
     const digitalMins = updateTime(mins);
     const digitalHours = updateTime(hours);
 
+    const dayOfMonth = presentTime.getDate();
+    const month = presentTime.getMonth();
+    const year = presentTime.getFullYear();
+    const day = presentTime.getDay();
+    
     digitalClock.innerText = digitalHours + ' : ' + digitalMins + ' : ' + digitalSeconds;
-    fullTime.innerText = day + ' ' + MONTHS[now.getMonth()] +' ' + now.getFullYear();
-    dayOfWeek.innerText = DAYS[now.getDay()];
+    fullTime.innerText = dayOfMonth + ' ' + MONTHS[month] + ' ' + year;
+    dayOfWeek.innerText = DAYS[day];
+}
+
+function setDate() {
+    const presentTime = new Date();
+                
+    const seconds = presentTime.getSeconds();
+    const ms = seconds + presentTime.getMilliseconds() / 1000;
+    const mins = presentTime.getMinutes();
+    const hours = presentTime.getHours();
+    
+    setClockDegrees(ms, mins, hours);
+    setClockTime(presentTime, seconds, mins, hours);
 }
 
 setInterval(setDate, 1);
