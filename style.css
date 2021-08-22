@@ -3,7 +3,6 @@
     --secondary-color: #fafafa;
 }
 
-
 html {
     background: var(--secondary-color);
     background-size: cover;
@@ -26,7 +25,7 @@ body {
     margin: 0;
     font-size: 1rem;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     flex-wrap: nowrap;
     justify-content: center;
     align-items: center;
@@ -90,9 +89,6 @@ body {
     color: var(--primary-color);
     font-size: 3em;
     font-weight: 700;
-    position: absolute;
-    margin: auto;
-    bottom: 10px;
     text-align: center;
     text-transform: uppercase;
 }
@@ -104,7 +100,5 @@ body {
     color: var(--secondary-color);
     border: 0;
     border-radius: 4px;
-    padding: 8px 14px;
-    position: absolute;
-    top: 50px;
+    padding: 18px 24px;
 }

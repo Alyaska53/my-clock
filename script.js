@@ -1,21 +1,26 @@
 const secondHand = document.querySelector('.second-hand');
 const minsHand = document.querySelector('.min-hand');
 const hourHand = document.querySelector('.hour-hand');
-const toggle = document.querySelector('.toggle');
+
 const digitalClock = document.getElementById('digital-clock');
 const fullTime = document.getElementById('full-date');
 const dayOfWeek = document.getElementById('day-of-week');
 
+const toggle = document.querySelector('.toggle');
+const html = document.querySelector('html');
+const DARK_CLASS_NAME = 'dark';
+const DARK_MODE_TITLE = 'Dark mode';
+const LIGHT_MODE_TITLE = 'Light mode';
+
+const MONTHS = ['january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december'];
+const DAYS = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
+
 toggle.addEventListener('click', function(e) {
-    const html = document.querySelector('html')
+    const isPreviousModeDark = html.classList.contains(DARK_CLASS_NAME); 
     
-    if ( html.classList.contains('dark') ) {
-        html.classList.remove('dark');
-        e.target.innerHTML = 'Dark mode';
-    } else {
-        html.classList.add('dark');
-        e.target.innerHTML = 'Light mode';
-    }
+    e.target.innerHTML = isPreviousModeDark ? DARK_MODE_TITLE : LIGHT_MODE_TITLE;
+
+    html.classList.toggle(DARK_CLASS_NAME);
 });
 
 function updateTime(time) {
@@ -26,11 +31,13 @@ function setDate() {
     const now = new Date();
                 
     const seconds = now.getSeconds();
+    const milliseconds = seconds + now.getMilliseconds() / 1000;
     const mins = now.getMinutes();
     const hours = now.getHours();
+    const day = now.getDate();
 
-    const secondsDegrees = ((seconds / 60) * 360) + 90;
-    const minsDegrees = ((mins / 60) * 360) + 90;
+    const secondsDegrees = ((milliseconds / 60) * 360) + 90;
+    const minsDegrees = ((mins / 60) * 360) + ((milliseconds / 60) * 6) + 90;
     const hoursDegrees = ((hours / 12) * 360) + ((mins / 60) * 30) + 90;
 
     secondHand.style.transform = `rotate(${secondsDegrees}deg)`;
@@ -41,14 +48,10 @@ function setDate() {
     const digitalMins = updateTime(mins);
     const digitalHours = updateTime(hours);
 
-    const months = ['january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december'];
-    const days = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
-    const day = now.getDate();
-
     digitalClock.innerText = digitalHours + ' : ' + digitalMins + ' : ' + digitalSeconds;
-    fullTime.innerText = day + ' ' + months[now.getMonth()] +' ' + now.getFullYear();
-    dayOfWeek.innerText = days[now.getDay()];
+    fullTime.innerText = day + ' ' + MONTHS[now.getMonth()] +' ' + now.getFullYear();
+    dayOfWeek.innerText = DAYS[now.getDay()];
 }
 
-setInterval(setDate, 1000);
+setInterval(setDate, 1);
 setDate();
