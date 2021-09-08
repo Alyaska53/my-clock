@@ -64,5 +64,5 @@ function setDate() {
     setClockTime(presentTime, seconds, mins, hours);
 }
 
-setInterval(setDate, 1);
+setInterval(setDate, 40);
 setDate();
