@@ -1,1 +1,1 @@
-# https://alyaska53.github.io/my-clock/index.html
+# https://alyaska53.github.io/my-clock/
