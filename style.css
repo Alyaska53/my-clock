@@ -9,6 +9,7 @@ html {
     font-family: 'Urbanist', sans-serif;
     text-align: center;
     font-size: 10px;
+    transition: all 1s;
 }
 
 html.dark {
